@@ -7,7 +7,7 @@ def janken
   program_hand = rand(3)
 
   if player_hand > 2
-    puts "値が無効です"
+    puts "入力された値が無効です"
     return true
   end
   jankens=["グー","チョキ","パー"]
@@ -15,13 +15,13 @@ def janken
   puts "あなたの手:#{jankens[player_hand]}, プログラムの手:#{jankens[program_hand]}"
 
   if player_hand == program_hand
-    puts "あいこで
+    puts "あいこ"
     return true
   elsif (player_hand == 0 && program_hand ==1) ||(player_hand == 1 && program_hand ==2) || (player_hand == 2 && program_hand ==0)
     puts "あなたの勝ちです"
     return false
   else
-    puts "あなたの負けです"
+    puts "負け"
     return false
   end
 end
