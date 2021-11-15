@@ -39,12 +39,12 @@ module JankenAsobi
       judgement(hand1, hand2)
     end
 
-    def judgement(h1, h2)
-      print "あなたの手:#{Hand[h1]}, プログラムの手:#{Hand[h2]}で\n"
-      if h1 == h2
+    def judgement(hand1, hand2)
+      print "あなたの手:#{Hand[hand1]}, プログラムの手:#{Hand[hand2]}で\n"
+      if hand1 == hand2
         puts "引き分けです。"
         return true
-      elsif (h1 - h2) % 3 == 1
+      elsif (hand1 - hand2) % 3 == 1
         puts "あなたの勝ちです"
         return false
       else
@@ -60,11 +60,6 @@ module JankenAsobi
     player2 = Man.new
     judge = Judge.new(player1, player2)
     1.times {|i| judge.game(i + 1)}
-    #next_game = true
-
-    #while next_game
-    # next_game = janken
-    #end
   end
 end
 

@@ -1,34 +1,62 @@
-def janken
-  puts "最初はグー、じゃんけん..."
-  puts "[0]:グー\n[1]:チョキ\n[2]:パー"
+module JankenAsobi
+  class Program
+    attr_reader :name
+    def initialize
+      @name = "program"
+    end
 
-  player_hand = gets.to_i
-
-  program_hand = rand(3)
-
-  if player_hand > 2
-    puts "入力された値が無効です"
-    return true
+    def show_hand
+      rand(3)
+    end
   end
-  jankens=["グー","チョキ","パー"]
 
-  puts "あなたの手:#{jankens[player_hand]}, プログラムの手:#{jankens[program_hand]}"
+  class Man
+    attr_reader :name
+    def initialize
+      @name = "you"
+    end
 
-  if player_hand == program_hand
-    puts "あいこ"
-    return true
-  elsif (player_hand == 0 && program_hand ==1) ||(player_hand == 1 && program_hand ==2) || (player_hand == 2 && program_hand ==0)
-    puts "あなたの勝ちです"
-    return false
-  else
-    puts "負け"
-    return false
+    def show_hand
+      begin
+        print "最初はグー、じゃんけん...\n[0]:グー\n[1]:チョキ\n[2]:パー\n(0,1,2いずれかを入力してEnter)"
+        n = gets.chomp
+      end until n == "0" or n == "1" or n == "2"
+      n.to_i
+    end
   end
-end
 
+  class Game
+    def initialize(program_hand, man_hand)
+      @program_hand = program_hand
+      @man_hand = man_hand
+    end
+    
+    def game(n)
+      program_hand = @program_hand.show_hand
+      man_hand = @man_hand.show_hand
+      judgement(program_hand, man_hand)
+    end
 
-next_game = true
+    def judgement(program_hand, man_hand)
+      print "あなたの手:#{Hand[program_hand]}, プログラムの手:#{Hand[man_hand]}で\n"
+      if program_hand == man_hand
+        puts "引き分けです。"
+        return true
+      elsif (program_hand - man_hand) % 3 == 1
+        puts "あなたの勝ちです"
+        return false
+      else
+        puts "あなたの負けです"
+        return false
+      end
+    end
+  end
 
-while next_game
-  next_game = janken
+  def self.play
+    program_hand = Program.new
+    man_hand = Man.new
+    judge = Judge.new(program_hand, man_hand)
+    1.times {|i| judge.game(i + 1)}
+  end
+
 end
